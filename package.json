@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --trace-warnings ./index.js",
@@ -14,10 +15,10 @@
   "dependencies": {
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "nodemon": "^2.0.19",
-    "standard": "^17.0.0"
+    "nodemon": "^2.0.19"
   },
   "devDependencies": {
-    "husky": "^8.0.1"
+    "husky": "^8.0.1",
+    "standard": "^17.0.0"
   }
 }
