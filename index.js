@@ -1,9 +1,9 @@
 import express from 'express'
 import Routes from './src/routes/routes.js'
 import dotenv from 'dotenv'
-// import database from './src/database/database.js'
+import database from './src/database/database.js'
 
-// database.connectToDatabase()
+database.connectToDatabase()
 
 dotenv.config()
 
