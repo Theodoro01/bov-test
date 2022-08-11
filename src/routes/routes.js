@@ -5,5 +5,6 @@ const routes = express.Router()
 
 routes.get('/home', (_, res) => res.status(200).json({ msg: 'ok' }))
 routes.post('/register', UserController.register)
+routes.post('/login', UserController.login)
 
 export default routes
