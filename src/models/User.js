@@ -5,10 +5,9 @@ import randomInteger from 'random-int'
 const { model, Schema } = mongoose
 
 const schema = new Schema({
-
   _id: {
     type: String,
-    default: uuidv4()
+    default: () => uuidv4()
   },
   farmer: {
     type: String,
