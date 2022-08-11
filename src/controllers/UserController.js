@@ -1,5 +1,5 @@
 import User from '../models/User.js'
-import token from '../middlewares/token.js'
+import token from '../middlewares/token/token.js'
 import bcrypt from 'bcrypt'
 import passwordHash from '../use-cases/passwordHash.js'
 
@@ -22,7 +22,6 @@ export default {
       }
       return res.status(201).json(resultUser)
     } catch (error) {
-      console.log(error)
       return res.status(500).json({ error: 'Registration failed' })
     }
   },
