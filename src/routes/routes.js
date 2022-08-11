@@ -1,11 +1,18 @@
 import express from 'express'
 import UserController from '../controllers/UserController.js'
+import FarmController from '../controllers/FarmController.js'
 import validateRegister from '../middlewares/validateRoutes/validateRegister.js'
 import validateLogin from '../middlewares/validateRoutes/validateLogin.js'
+import validateAuth from '../middlewares/token/auth.js'
+import validateFarm from '../middlewares/validateRoutes/validateFarm.js'
+
 const routes = express.Router()
 
 routes.get('/home', (_, res) => res.status(200).json({ msg: 'ok' }))
+
 routes.post('/register', validateRegister.execute, UserController.register)
 routes.post('/login', validateLogin.execute, UserController.login)
+routes.post('/farmRegister', validateAuth.auth, validateFarm.execute, FarmController.farmRegister)
+routes.get('/searchAllFarms', validateAuth.auth, FarmController.searchAllFarms)
 
 export default routes
