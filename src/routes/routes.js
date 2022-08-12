@@ -11,6 +11,7 @@ import validateSearchProduction from '../middlewares/validateRoutes/validateSear
 import validateMilkProduction from '../middlewares/validateRoutes/validateMilkProduction.js'
 import validateAvgProduction from '../middlewares/validateRoutes/validateAvgProduction.js'
 import validateAvgYearProduction from '../middlewares/validateRoutes/validateAvgYearProduction.js'
+
 const routes = express.Router()
 
 routes.get('/home', (_, res) => res.status(200).json({ msg: 'ok' }))
