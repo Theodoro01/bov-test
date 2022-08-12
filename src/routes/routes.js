@@ -19,5 +19,6 @@ routes.post('/farmRegister', validateAuth.auth, validateFarm.execute, FarmContro
 routes.get('/searchAllFarms', validateAuth.auth, FarmController.searchAllFarms)
 routes.post('/insertProduction', validateAuth.auth, validateInsertProduction.execute, ProductionController.insertProduction)
 routes.get('/searchAllProduction', validateAuth.auth, validateSearchProduction.execute, ProductionController.allProduction)
+routes.get('/milkProduction', validateAuth.auth, /* validateMilkProduction.execute, */ ProductionController.milkProduction)
 
 export default routes

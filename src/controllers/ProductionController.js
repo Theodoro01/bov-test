@@ -1,5 +1,8 @@
 import createProductionRepository from '../database/repository/production/createProductionRepository.js'
 import searchProductionRepository from '../database/repository/production/searchProductionRepository.js'
+import milkProductionRepository from '../database/repository/production/milkProductionRepository.js'
+import priceCalc from '../use-cases/priceCalc.js'
+import findFarmRepository from '../database/repository/farm/findFarmRepository.js'
 
 export default {
   insertProduction: async (req, res) => {
@@ -19,6 +22,20 @@ export default {
         return res.status(404).json({ error: 'production not found' })
       }
       return res.status(200).json(result)
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
+  },
+  milkProduction: async (req, res) => {
+    try {
+      const { year, month, farmCod } = req.body
+      const volume = await milkProductionRepository.execute(year, month, farmCod)
+      if (volume === 0) {
+        return res.status(404).json({ error: 'production not found' })
+      }
+      const distance = await findFarmRepository.execute(farmCod)
+      const resultCalc = await priceCalc.execute(volume, month, distance)
+      return res.status(201).json({ resultCalc })
     } catch (error) {
       return res.status(500).json({ error })
     }
