@@ -6,7 +6,7 @@ const milkProductionSchema = {
     farmCod: { type: 'number' }
   },
   required: ['year', 'month', 'farmCod'],
-  additionalProperties: false
+  additionalProperties: true
 }
 
 export default milkProductionSchema
