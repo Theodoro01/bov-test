@@ -3,6 +3,7 @@ import searchProductionRepository from '../database/repository/production/search
 import milkProductionRepository from '../database/repository/production/milkProductionRepository.js'
 import priceCalc from '../use-cases/priceCalc.js'
 import findFarmRepository from '../database/repository/farm/findFarmRepository.js'
+import avgProductionRepository from '../database/repository/production/avgProductionRepository.js'
 
 export default {
   insertProduction: async (req, res) => {
@@ -38,6 +39,18 @@ export default {
       return res.status(201).json({ resultCalc })
     } catch (error) {
       return res.status(500).json({ error })
+    }
+  },
+  averageProduction: async (req, res) => {
+    try {
+      const { year, month, farmCod } = req.body
+      const searchAvgProduction = await avgProductionRepository.execute(year, month, farmCod)
+      if (searchAvgProduction === 0) {
+        return res.status(404).json({ error: 'production not found' })
+      }
+      return res.status(201).json(searchAvgProduction)
+    } catch (error) {
+      return res.status(500).json({ error: error.message })
     }
   }
 }
