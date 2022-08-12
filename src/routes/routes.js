@@ -10,7 +10,7 @@ import validateInsertProduction from '../middlewares/validateRoutes/validateInse
 import validateSearchProduction from '../middlewares/validateRoutes/validateSearchProduction.js'
 import validateMilkProduction from '../middlewares/validateRoutes/validateMilkProduction.js'
 import validateAvgProduction from '../middlewares/validateRoutes/validateAvgProduction.js'
-
+import validateAvgYearProduction from '../middlewares/validateRoutes/validateAvgYearProduction.js'
 const routes = express.Router()
 
 routes.get('/home', (_, res) => res.status(200).json({ msg: 'ok' }))
@@ -23,5 +23,6 @@ routes.post('/insertProduction', validateAuth.auth, validateInsertProduction.exe
 routes.get('/searchAllProduction', validateAuth.auth, validateSearchProduction.execute, ProductionController.allProduction)
 routes.get('/milkProduction', validateAuth.auth, validateMilkProduction.execute, ProductionController.milkProduction)
 routes.get('/avgProduction', validateAuth.auth, validateAvgProduction.execute, ProductionController.averageProduction)
+routes.get('/avgYearProduction', validateAuth.auth, validateAvgYearProduction.execute, ProductionController.milkAvgYearProduction)
 
 export default routes

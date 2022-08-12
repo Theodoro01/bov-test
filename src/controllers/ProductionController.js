@@ -2,8 +2,10 @@ import createProductionRepository from '../database/repository/production/create
 import searchProductionRepository from '../database/repository/production/searchProductionRepository.js'
 import milkProductionRepository from '../database/repository/production/milkProductionRepository.js'
 import priceCalc from '../use-cases/priceCalc.js'
+import priceCalcWithAvg from '../use-cases/priceCalcWithAvg.js'
 import findFarmRepository from '../database/repository/farm/findFarmRepository.js'
 import avgProductionRepository from '../database/repository/production/avgProductionRepository.js'
+import milkYearAvgProductionRepository from '../database/repository/production/milkYearAvgProductionRepository.js'
 
 export default {
   insertProduction: async (req, res) => {
@@ -51,6 +53,23 @@ export default {
       return res.status(201).json(searchAvgProduction)
     } catch (error) {
       return res.status(500).json({ error: error.message })
+    }
+  },
+  milkAvgYearProduction: async (req, res) => {
+    try {
+      const { year, farmCod } = req.body
+      const resultProduction = await milkYearAvgProductionRepository.execute(year, farmCod)
+      if (resultProduction.length === 0) {
+        return res.status(404).json({ error: 'production not found' })
+      }
+      const distance = await findFarmRepository.execute(farmCod)
+      const result = []
+      for (let i = 0; i < resultProduction.length; i++) {
+        result.push(await priceCalcWithAvg.execute(resultProduction[i].sum, resultProduction[i]._id, distance, resultProduction[i].avg))
+      }
+      return res.status(201).json(result)
+    } catch (error) {
+      return res.status(500).json({ error })
     }
   }
 }
