@@ -1,23 +1,23 @@
 import User from '../models/User.js'
 import token from '../middlewares/token/token.js'
 import bcrypt from 'bcrypt'
-import passwordHash from '../use-cases/passwordHash.js'
+import registerUser from '../database/repository/user/registerUser.js'
+import findEmailRepository from '../database/repository/user/findEmailRepository.js'
 
 export default {
   register: async (req, res) => {
     try {
       const user = req.body
-      const searchUser = await User.find({ email: user.email })
-      if (searchUser.length > 0) {
+      const validateUser = await findEmailRepository.execute(user)
+      if (validateUser.length > 0) {
         return res.status(400).json({ error: 'User already exists' })
       }
-      const hashUser = await passwordHash.createHash(user)
-      const resultCreate = await User.create(hashUser)
-      const tokenGeneration = token.generationToken({ user: resultCreate })
+      const createUser = await registerUser.execute(user)
+      const tokenGeneration = token.generationToken({ user: createUser })
       const resultUser = {
-        farmerCod: resultCreate.farmerCod,
-        farmer: resultCreate.farmer,
-        email: resultCreate.email,
+        farmerCod: createUser.farmerCod,
+        farmer: createUser.farmer,
+        email: createUser.email,
         token: tokenGeneration
       }
       return res.status(201).json(resultUser)
