@@ -4,8 +4,13 @@ export default {
       summary: 'Action registration',
       description: 'Register a Action',
       tags: ['Farm'],
-      security: [{ bearerAuth: [] }],
       parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          description: 'Bearer token',
+          required: true
+        },
         {
           in: 'body',
           name: 'body',
@@ -37,13 +42,23 @@ export default {
         500: {
           description: 'Internal server Error'
         }
-      },
-      securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT'
+      }
+    }
+  },
+  '/v1/searchAllFarms': {
+    get: {
+      tags: ['Farm'],
+      description: '',
+      parameters: [
+        {
+          in: 'header',
+          name: 'Authorization',
+          description: 'Bearer token',
+          required: true
         }
+      ],
+      responses: {
+        200: { description: 'OK' }
       }
     }
   }
