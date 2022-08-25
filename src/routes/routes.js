@@ -21,9 +21,9 @@ routes.post('/login', validateLogin.execute, UserController.login)
 routes.post('/farmRegister', validateAuth.auth, validateFarm.execute, FarmController.farmRegister)
 routes.get('/searchAllFarms', validateAuth.auth, FarmController.searchAllFarms)
 routes.post('/insertProduction', validateAuth.auth, validateInsertProduction.execute, ProductionController.insertProduction)
-routes.get('/searchAllProduction', validateAuth.auth, validateSearchProduction.execute, ProductionController.allProduction)
-routes.get('/milkProduction', validateAuth.auth, validateMilkProduction.execute, ProductionController.milkProduction)
-routes.get('/avgProduction', validateAuth.auth, validateAvgProduction.execute, ProductionController.averageProduction)
-routes.get('/avgYearProduction', validateAuth.auth, validateAvgYearProduction.execute, ProductionController.milkAvgYearProduction)
+routes.post('/searchAllProduction', validateAuth.auth, validateSearchProduction.execute, ProductionController.allProduction)
+routes.post('/milkProduction', validateAuth.auth, validateMilkProduction.execute, ProductionController.milkProduction)
+routes.post('/avgProduction', validateAuth.auth, validateAvgProduction.execute, ProductionController.averageProduction)
+routes.post('/avgYearProduction', validateAuth.auth, validateAvgYearProduction.execute, ProductionController.milkAvgYearProduction)
 
 export default routes
